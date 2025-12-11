@@ -1,5 +1,5 @@
 set(SOURCE_FILES ${SOURCE_FILES}
-    source/main.cc
+    source/NDS/main.cc
 
     PARENT_SCOPE
 )

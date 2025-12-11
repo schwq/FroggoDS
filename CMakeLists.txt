@@ -6,8 +6,9 @@ set(projectName FroggoDS)
 project(${projectName})
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_subdirectory(source)
+add_subdirectory(source/NDS)
 
 add_executable(${projectName} ${SOURCE_FILES})
 
