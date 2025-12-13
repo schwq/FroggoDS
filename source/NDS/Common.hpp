@@ -40,90 +40,105 @@ typedef int8_t i8;
 #define INLINE
 #endif
 
-#define BIT_SET(a, n, on)                                                      \
-  {                                                                            \
-    if (on)                                                                    \
-      a |= (1 << n);                                                           \
-    else                                                                       \
-      a &= ~(1 << n);                                                          \
+#define BIT_SET(a, n, on) \
+  {                       \
+    if (on)               \
+      a |= (1 << n);      \
+    else                  \
+      a &= ~(1 << n);     \
   }
 
 #define BETWEEN(a, b, c) ((a >= b) && (a <= c))
 
-#define FREE_FUN(p, fun)                                                       \
-  do {                                                                         \
-    if (p) {                                                                   \
-      fun(p);                                                                  \
-      p = nullptr;                                                             \
-    }                                                                          \
+#define FREE_FUN(p, fun) \
+  do {                   \
+    if (p) {             \
+      fun(p);            \
+      p = nullptr;       \
+    }                    \
   } while (0);
 
 #define FREE(p) FREE_FUN(p, free)
 
-#define SWP(a, b, tmp)                                                         \
-  tmp = a;                                                                     \
-  a = b;                                                                       \
+#define SWP(a, b, tmp) \
+  tmp = a;             \
+  a = b;               \
   b = tmp;
 
-namespace Froggo {
-static std::string VerbosityToStr(int verbosity) {
+namespace Froggo
+{
+static std::string VerbosityToStr(int verbosity)
+{
   switch (verbosity) {
-  case 0:
-    return "[INF]: ";
-  case -1:
-    return "[ERR]: ";
-  default:
-    return "[WRN]: ";
+    case 0:
+      return "[INF]: ";
+    case -1:
+      return "[ERR]: ";
+    default:
+      return "[WRN]: ";
   }
 }
 
 template <typename... T>
-inline void Log(int verbosity, std::string_view fmt, T &&...args) {
+inline void Log(int verbosity, std::string_view fmt, T&&... args)
+{
   std::string message(std::vformat(fmt, std::make_format_args(args)...));
   std::string out = VerbosityToStr(verbosity) + message;
   std::cout << out << std::endl;
 }
 
 template <typename... T>
-inline void LogInfo(std::string_view fmt, T &&...args) {
+inline void LogInfo(std::string_view fmt, T&&... args)
+{
   Log(0, fmt, std::forward<T>(args)...);
 }
 template <typename... T>
-inline void LogWarn(std::string_view fmt, T &&...args) {
+inline void LogWarn(std::string_view fmt, T&&... args)
+{
   Log(1, fmt, std::forward<T>(args)...);
 }
-template <typename... T> inline void LogErr(std::string_view fmt, T &&...args) {
+template <typename... T>
+inline void LogErr(std::string_view fmt, T&&... args)
+{
   Log(-1, fmt, std::forward<T>(args)...);
 }
 template <typename... T>
-inline void NotImplemented(std::string_view fmt, T &&...args) {
+inline void NotImplemented(std::string_view fmt, T&&... args)
+{
   LogWarn("[NOT IMPLEMENTED]: {}", fmt, std::forward<T>(args)...);
 }
 
 #ifdef DEBUG_ENABLED
-namespace Debug {
+namespace Debug
+{
 template <typename... T>
-inline void Log(int verbosity, std::string_view fmt, T &&...args) {
+inline void Log(int verbosity, std::string_view fmt, T&&... args)
+{
   std::string message(std::vformat(fmt, std::make_format_args(args)...));
   std::string out = VerbosityToStr(verbosity) + message;
   std::cout << out << std::endl;
 }
 
 template <typename... T>
-inline void LogInfo(std::string_view fmt, T &&...args) {
+inline void LogInfo(std::string_view fmt, T&&... args)
+{
   Log(0, fmt, std::forward<T>(args)...);
 }
 template <typename... T>
-inline void LogWarn(std::string_view fmt, T &&...args) {
+inline void LogWarn(std::string_view fmt, T&&... args)
+{
   Log(1, fmt, std::forward<T>(args)...);
 }
-template <typename... T> inline void LogErr(std::string_view fmt, T &&...args) {
+template <typename... T>
+inline void LogErr(std::string_view fmt, T&&... args)
+{
   Log(-1, fmt, std::forward<T>(args)...);
 }
 template <typename... T>
-inline void NotImplemented(std::string_view fmt, T &&...args) {
+inline void NotImplemented(std::string_view fmt, T&&... args)
+{
   LogWarn("[NOT IMPLEMENTED]: {}", fmt, std::forward<T>(args)...);
 }
-} // namespace Debug
+}  // namespace Debug
 #endif
-} // namespace Froggo
+}  // namespace Froggo

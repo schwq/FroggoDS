@@ -251,6 +251,20 @@ class ARM7TDMI
   void ExARM_MRS(const ARM7_ARMInstruction& instruction);
   void ExARM_MSR(const ARM7_ARMInstruction& instruction);
 
+  void ExARM_BlockDataTransfer(const ARM7_ARMInstruction& instruction);
+  void ExARM_LDM(const ARM7_ARMInstruction& instruction);
+  void ExARM_STM(const ARM7_ARMInstruction& instruction);
+
+  void ExARM_SignedDataTransfer(const ARM7_ARMInstruction& instruction);
+  void ExARM_LDRH(const ARM7_ARMInstruction& instruction);
+  void ExARM_STRH(const ARM7_ARMInstruction& instruction);
+  void ExARM_LDRSB(const ARM7_ARMInstruction& instruction);
+  void ExARM_LDRSH(const ARM7_ARMInstruction& instruction);
+
+  void ExARM_SigleDataTransfer(const ARM7_ARMInstruction& instruction);
+  void ExARM_LDR(const ARM7_ARMInstruction& instruction);
+  void ExARM_STR(const ARM7_ARMInstruction& instruction);
+
   bool CheckInstructionCondition(const ARM7_ARMInstruction& instruction);
 
   ARM7_OpMode m_OperationMode = ARM7_OpMode::UND;
